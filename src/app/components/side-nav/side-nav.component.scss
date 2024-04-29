@@ -1,0 +1,33 @@
+.side-nav-icon-lable-cnt {
+    display: flex;
+    align-items: center; 
+    gap: 20px;
+    height: 50px; 
+    
+}
+
+
+.mat-icon {
+    margin-right: 40px; /* Increase the space between icon and text */
+    margin-bottom:20px;
+    font-size: 24px; /* Increase the size of the icon */
+    margin-top: 30px;
+}
+
+.mat-drawer{
+    width: 280px;
+}
+
+.mat-drawer-content{
+    height: 600px;
+}
+
+.main-div :hover
+{
+    background-color: #feefc3;
+    border-radius: 0px 50px 50px 0px;
+}
+mat-drawer
+{
+    height: 100%;
+}

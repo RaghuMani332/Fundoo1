@@ -1,0 +1,144 @@
+// .outer
+// {
+//     display: flex;
+//     flex-direction: row;
+//     margin-left: 450px;
+//     width: 50px;
+// }
+// .note-card {
+//     position: relative;
+//     width: 300px;
+//     min-height: 150px;
+//     max-height: fit-content;
+//     padding: 10px;
+//     border: 1px solid #ccc;
+//     border-radius: 5px;
+//     background-color: #fff;
+//     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+//     transition: box-shadow 0.3s ease-in-out;
+//     margin-left: 5px;
+//     color: #5f6368;
+//     font-family: "Google Sans", Roboto, Arial, sans-serif;
+//     font-size: 1.375rem;
+//     font-weight: 400;
+//     letter-spacing: 0;
+//     line-height: 1.75rem;
+//     padding: 5px;
+//   }
+  
+//   .pin-icon {
+//     position: absolute;
+//     top: 5px; /* Adjust the top position as needed */
+//     right: 5px; /* Adjust the right position as needed */
+//     cursor: pointer;
+//     color: #555;
+//     font-size: 20px;
+//     display: none;
+// }
+//   .note-card:hover {
+//     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    
+//   }
+  
+//   .note-content {
+//     margin-bottom: 10px;
+//   }
+  
+//   .sample-text {
+//     font-size: 14px;
+//     color: #333;
+//   }
+  
+//   .note-icons {
+//     position: absolute;
+//     bottom: 10px;
+//     left: 10px;
+//     display: none;
+//     width: 100%;
+//   }
+  
+//   .note-card:hover .note-icons {
+//     display: flex;
+//   }
+//   .note-card:hover .pin-icon {
+//     display: flex;
+//   }
+  
+//   .note-icons mat-icon {
+//     margin-right: 10px;
+//     cursor: pointer;
+//     color: #555;
+//     font-size: 20px;
+//     width: 100%;
+//   }
+.note-card-outer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-left: 350px;
+}
+
+.note-card {
+  width: 20%;
+  min-height: 106px;
+  max-height: fit-content;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  &:hover {
+
+    .note-icons{
+      visibility: visible;
+    }
+    .pin-icon{
+      visibility: visible;
+    }
+  } 
+  /* justify-content: space-between; */
+}
+
+.pin-icon {
+  cursor: pointer;
+  color: #555;
+  font-size: 20px;
+  visibility: hidden;
+  margin-top: -10px;
+  margin-right: -10px;
+  align-self: flex-end;
+}
+
+
+.note-icons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  visibility: hidden;
+}
+
+
+.note-icons mat-icon {
+  margin: 5px;
+  cursor: pointer;
+  color: #555;
+  font-size: 20px;
+}
+.note-content {
+  display: flex;
+  flex-direction: column; 
+  margin-bottom: 30px;/* Set the flex direction to column */
+}
+
+
+.sample-text {
+  font-size: 14px;
+  color: #333;
+  display: block; /* Display spans as block elements */
+  //margin-bottom: 10px; /* Optional: Add some space between the spans */
+}

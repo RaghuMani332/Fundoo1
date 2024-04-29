@@ -1,0 +1,39 @@
+.trash-main-cnt
+{
+    position: relative;
+    border: 1px solid red;
+   // height: 150px;
+    min-height: 100px;
+    max-height: fit-content;
+    width: 250px;
+    margin-left: 650px;
+    font-family: Roboto, Arial, sans-serif;
+    font-size: 20px;
+    padding: 10px;
+   
+}
+.icons{
+    position:absolute;
+    bottom: 0;
+    display: flex;
+    gap: 5px;
+    
+}
+.warning{
+    
+    // margin-left: 650px;
+    color: #202124;
+  
+    display: flex;
+    font-size: 17px;
+    font-family: "Google Sans", Roboto, Arial, sans-serif;
+    font-style: italic;
+    align-items: center;
+    justify-content: center;
+    padding-top: 24px;
+    
+}
+.warning a{
+    font-family: "Google Sans", Roboto, Arial, sans-serif;
+    text-decoration: none;
+}
