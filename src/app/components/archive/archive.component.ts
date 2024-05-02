@@ -16,11 +16,18 @@ export class ArchiveComponent implements OnInit {
       {
         console.log(responce.data);
         // this.noteList=responce.data;  
-        this.archiveList=responce.data.OwnNotes.filter((note: any) => note.isArchive);
+        this.archiveList=responce.data.OwnNotes.filter((note: any) => note.isArchive &&  !note.isTrash);
         console.log(this.archiveList);
       },err=>console.log(err))
   }
 
 
-
+  handelUpdateArchiveList($event: { action: string; data: any }) {
+    console.log('event', $event);
+    if ($event.action == 'archive' || $event.action == 'trash') {
+      this.archiveList = this.archiveList.filter(
+        (ele: any) => ele.id != $event.data.id
+      );
+    }
+  }
 }

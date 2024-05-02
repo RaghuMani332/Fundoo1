@@ -14,4 +14,8 @@ export class UserService {
   signinApiCall(requestBody:any){
 return this.HttpService.signinApi(requestBody)
   }
+  getNameAndEmailApiCall()
+  {
+    return this.HttpService.getNameAndEmail()
+  }
 }

@@ -96,3 +96,17 @@ img {
     gap: 10px; /* Add gap between icon and initial */
     margin-left: auto; /* Move to the end */
 }
+.user-details-cnt
+{
+    padding: 5px;
+    height: 150px;
+    width: fit-content;
+    display: grid;
+   align-items: center;
+    justify-content: center;
+    // border: 1px solid;
+    // background-color: rgb(128 128 128 / 13%);
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: 600;
+
+}

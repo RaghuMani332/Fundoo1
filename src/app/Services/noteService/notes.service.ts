@@ -19,4 +19,17 @@ export class NotesService {
   {
     return this.httpService.archiveApi(data)
   }
+  trashNoteApiCall(data:any)
+  {
+    return this.httpService.trashNoteApi(data)
+  }
+  changeColorApiCall(data:any){
+    return this.httpService.changeColorApi(data)
+  }
+  permanentDeleteApiCall(data:any){
+    return this.httpService.permanentDeleteeApi(data)
+  }
+  updateNoteApiCall(data:any){
+    return this.httpService.updateApi(data)
+  }
 }

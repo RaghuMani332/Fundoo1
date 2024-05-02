@@ -36,4 +36,20 @@ private authHeader=new HttpHeaders({
   archiveApi(data: any):Observable<any> {
     return this.httpclient.put(`https://localhost:7004/api/Notes/${data.noteId}`,{},{headers:this.authHeader})
   }
+  trashNoteApi(data:any):Observable<any>{
+    return this.httpclient.put(`https://localhost:7004/trash${data.noteId}`,{},{headers:this.authHeader})
+  }
+  changeColorApi(data:any):Observable<any>{    
+    return this.httpclient.put(`https://localhost:7004/color${data.noteId}?color=${encodeURIComponent(data.bgColor)}`,{},{headers:this.authHeader})
+  }
+  permanentDeleteeApi(data:any):Observable<any>{
+    return this.httpclient.delete(`https://localhost:7004/delete?noteId=${data.noteId}`,{headers:this.authHeader})
+  }
+  updateApi(data:any):Observable<any>{
+    return this.httpclient.put(`https://localhost:7004/api/Notes?noteId=${data.noteId}`,data,{headers:this.authHeader})
+  }
+  getNameAndEmail():Observable<any>{
+    return this.httpclient.get(`https://localhost:7004/api/User/getNameAndEmail`,{headers:this.authHeader})
+  }
+  
 }

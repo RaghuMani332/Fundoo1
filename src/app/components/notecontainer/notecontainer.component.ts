@@ -8,71 +8,38 @@ import { NotesService } from 'src/app/Services/noteService/notes.service';
 })
 export class NotecontainerComponent implements OnInit {
 
-  noteList:any[]=[];
-  constructor(private noteService:NotesService) { }
+  noteList: any[] = [];
+  constructor(private noteService: NotesService) { }
 
   ngOnInit(): void {
-    this.noteService.getAllNotesCall().subscribe((responce:any)=>
-      {
-        console.log(responce.data);
-        // this.noteList=responce.data;  
-        this.noteList=responce.data.OwnNotes.filter((note: any) => !note.isArchive);
-        console.log(this.noteList);
-      },err=>console.log(err))
+    this.noteService.getAllNotesCall().subscribe((responce: any) => {
+      console.log(responce.data);
+      this.noteList = responce.data.OwnNotes.filter((note: any) => !note.isArchive && !note.isTrash && !note.IsPermanentDelete);
+
+      console.log(this.noteList);
+    }, err => console.log(err))
   }
-
-  // handleUpdateNoteList($event: { action: string, data: any }) {
-
-  //   this.noteService.getAllNotesCall().subscribe((responce:any)=>
-  //     {
-  //       console.log(responce.data);
-  //       // this.noteList=responce.data;  
-  //       this.noteList=responce.data.filter((ele:any)=>ele.OwnNotes.isArchive)
-      
-  //       console.log(this.noteList);
-  //     },err=>console.log(err)) 
-  // }
-
   handleUpdateNoteList($event: { action: string, data: any }) {
-    this.noteService.getAllNotesCall().subscribe((response: any) => {
-        console.log(response.data);
+    if ($event.action == "color") {
 
-        // Filter own notes based on the "isArchive" property
-        this.noteList = response.data.OwnNotes.filter((note: any) => !note.isArchive);
-
-        console.log(this.noteList);
-    }, err => console.log(err));
+      this.noteList = this.noteList.map((ele: any) => {
+        if (ele.noteId == $event.data.noteId) {
+          return $event.data;
+        }
+        else {
+          return ele;
+        }
+      })
+    }
+    else if ($event.action == 'archive') {
+      this.noteList = this.noteList.filter((note: any) => note.noteId != $event.data.noteId);
+    }
+    else if($event.action=='update')
+      {
+        this.noteService.getAllNotesCall().subscribe((responce: any) => {
+          this.noteList = responce.data.OwnNotes.filter((note: any) => !note.isArchive && !note.isTrash && !note.IsPermanentDelete);
+            }, err => console.log(err))
+      }
+  }
 }
 
-
-  
-}
-
-// import { Component, OnInit } from '@angular/core';
-// import { NotesService } from 'src/app/Services/noteService/notes.service';
-
-// @Component({
-//   selector: 'app-notecontainer',
-//   templateUrl: './notecontainer.component.html',
-//   styleUrls: ['./notecontainer.component.scss']
-// })
-// export class NotecontainerComponent implements OnInit {
-
-//   noteList: any[] = [];
-
-//   constructor(private noteService: NotesService) { }
-
-//   ngOnInit(): void {
-//     this.noteService.getAllNotesCall().subscribe({
-//       next: (res: any) => {
-//         console.log(res.data);
-//         // Access properties as needed: res.data.OwnNotes and res.data.CollabNotes
-//       },
-//       error: (err: any) => {
-//         console.error(err);
-//         // Handle errors if any
-//       }
-//     });
-//   }
-
-// }

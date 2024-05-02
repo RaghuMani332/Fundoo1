@@ -30,7 +30,6 @@ export class LoginComponent implements OnInit {
     const {email,password}=this.loginForm.controls
     this.UserService.loginApiCall(email.value,password.value).subscribe(res => 
       {
-        console.log(res)
         localStorage.setItem('authToken',res.data)
         this.router.navigate(['dashboard/notes'])
       },err => {

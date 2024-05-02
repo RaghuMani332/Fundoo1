@@ -1,46 +1,59 @@
-<!-- <div class="outer">
-    <div *ngFor="let note of notesData.OwnNotes" class="note-card" (mouseover)="showIcons = true" (mouseleave)="showIcons = false">
-   
-        <mat-icon class="pin-icon" svgIcon="pin-icon" aria-hidden="false" aria-label="Note SVG icon"></mat-icon>
-        <div class="note-content">
-          <span class="sample-text">{{note.title}} </span>
-          <br><br>
-          <span class="sample-text">{{note.description}} </span>
-    <br><br>
-        </div>
-        <div class="note-icons" *ngIf="showIcons">
-          <mat-icon svgIcon="reminder-icon" aria-hidden="false" aria-label="Note SVG icon"></mat-icon>
-          <mat-icon svgIcon="collabrator-icon" aria-hidden="false" aria-label="Note SVG icon"></mat-icon>
-          <mat-icon svgIcon="color-icon" aria-hidden="false" aria-label="Note SVG icon"></mat-icon>
-          <mat-icon svgIcon="img-icon" aria-hidden="false" aria-label="Note SVG icon"></mat-icon>
-          <mat-icon svgIcon="archive-icon" aria-hidden="false" aria-label="Note SVG icon"></mat-icon>
-          <mat-icon svgIcon="more-icon" aria-hidden="false" aria-label="Note SVG icon"></mat-icon>
-        </div>
-      </div>
-</div> -->
+ <div *ngIf="container=='trash'">
+  <div class="warning">Notes in the Recycle Bin are deleted after 7 days. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="">EmptyBin</a></div>
+  <br> <br>
+ </div>
 
-<div class="note-card-outer">
-  <div *ngFor="let note of notesData.OwnNotes" class="note-card">
-   
-    <mat-icon class="pin-icon" svgIcon="pin-icon" aria-hidden="false" aria-label="Note SVG icon"></mat-icon>
-    <div class="note-content">
+<div class="note-card-outer"> 
+  <div *ngFor="let note of notesData | search : searchString" class="note-card" [style.backgroundColor]="note.bgColor">
+    <mat-icon class="pin-icon" *ngIf="container=='archive'||container=='notes'" svgIcon="pin-icon" aria-hidden="false" aria-label="Note SVG icon"></mat-icon>
+    <div class="note-content" (click)="handleEditnote(note)">
       <span class="sample-text">{{note.title}} </span>
       <span class="sample-text">{{note.description}} </span>
 
     </div>
     <div class="note-icons">
-      <mat-icon svgIcon="reminder-icon" aria-hidden="false" aria-label="Note SVG icon"></mat-icon>
-      <mat-icon svgIcon="collabrator-icon" aria-hidden="false" aria-label="Note SVG icon"></mat-icon>
-      <mat-icon svgIcon="color-icon" aria-hidden="false" aria-label="Note SVG icon"></mat-icon>
-      <mat-icon svgIcon="img-icon" aria-hidden="false" aria-label="Note SVG icon"></mat-icon>
-      <mat-icon svgIcon="archive-icon" (click)="handleNoteIconsClick('archive',note)" aria-hidden="false" aria-label="Note SVG icon"></mat-icon>
-      <!-- <mat-icon svgIcon="more-icon" [matMenuTriggerFor]="moreMenu" aria-hidden="false" aria-label="Note SVG icon"></mat-icon> -->
+      <mat-icon  *ngIf="container=='trash'" svgIcon="restore-icon" aria-hidden="false" (click)="handleNoteIconsClick('restore',note)" aria-label="Note SVG icon"></mat-icon>
+      <mat-icon   *ngIf="container=='trash'" svgIcon="delete-forever-icon" aria-hidden="false" (click)="handleNoteIconsClick('permanentDelete',note)" aria-label="Note SVG icon"></mat-icon>
+      <mat-icon svgIcon="reminder-icon" *ngIf="container=='archive'||container=='notes'" aria-hidden="false" aria-label="Note SVG icon"></mat-icon>
+      <mat-icon svgIcon="collabrator-icon" *ngIf="container=='archive'||container=='notes'" aria-hidden="false" aria-label="Note SVG icon"></mat-icon>
+      <mat-icon svgIcon="color-icon" *ngIf="container=='archive'||container=='notes'" [matMenuTriggerFor]="noteCardColourMenu" aria-hidden="false" aria-label="Note SVG icon"></mat-icon>
+      <mat-icon svgIcon="img-icon" *ngIf="container=='archive'||container=='notes'" aria-hidden="false" aria-label="Note SVG icon"></mat-icon>
+      <mat-icon svgIcon="archive-icon" *ngIf="container=='notes'" (click)="handleNoteIconsClick('archive',note)" aria-hidden="false" aria-label="Note SVG icon"></mat-icon>
+      <mat-icon svgIcon="unarchive-icon" *ngIf="container=='archive'" (click)="handleNoteIconsClick('archive',note)" aria-hidden="false" aria-label="Note SVG icon"></mat-icon>
+      <mat-icon svgIcon="more-icon" *ngIf="container=='archive'||container=='notes'" [matMenuTriggerFor]="moreMenu" aria-hidden="false" aria-label="Note SVG icon"></mat-icon>
     </div>
-  </div>
+
+    <mat-menu #noteCardColourMenu="matMenu">
+      <div class="color-palate-cnt">
+        <div class="col1" matTooltip="Default" (click)="handleNoteIconsClick('color',note,'#ffffff')"></div>
+        <div class="col2" matTooltip="Coral" (click)="handleNoteIconsClick('color',note,'#FAAFA8')"></div>
+        <div class="col3" matTooltip="Peach" (click)="handleNoteIconsClick('color',note,'#F39F76')"></div>
+        <div class="col4" matTooltip="Sand" (click)="handleNoteIconsClick('color',note,'#FFF8B8')"></div>
+        <div class="col5" matTooltip="Mint" (click)="handleNoteIconsClick('color',note,'#E2F6D3')"></div>
+        <div class="col6" matTooltip="Sage" (click)="handleNoteIconsClick('color',note,'#B4DDD3')"></div>
+        <div class="col7" matTooltip="Fog" (click)="handleNoteIconsClick('color',note,'#D4E4ED')"></div>
+        <div class="col8" matTooltip="Storm" (click)="handleNoteIconsClick('color',note,'#AECCDC')"></div>
+        <div class="col9" matTooltip="Dusk" (click)="handleNoteIconsClick('color',note,'#D3BFDB')"></div>
+        <div class="col10" matTooltip="Blossom" (click)="handleNoteIconsClick('color',note,'#F6E2DD')"></div>
+        <div class="col11" matTooltip="Clay" (click)="handleNoteIconsClick('color',note,'#E9E3D4')"></div>
+        <div class="col12" matTooltip="Chalk" (click)="handleNoteIconsClick('color',note,'#EFEFF1')"></div>
+      </div>
+    </mat-menu>
+
+
+
+<mat-menu #moreMenu="matMenu">
+  <button mat-menu-item (click)="handleNoteIconsClick('trash', note)">
+    <span>Delete note</span></button
+  ><button mat-menu-item>
+    <span>Change lables</span></button
+  ><button mat-menu-item>
+    <span>Add drawing</span></button
+  ><button mat-menu-item>
+    <span>Make a copy</span>
+  </button>
+</mat-menu>
+
+</div>
   
 </div>
-<!-- <mat-menu #moreMenu="matMenu">
-  <button mat-menu-item>
-    <span>Delete Note</span>
-  </button>
-</mat-menu> -->

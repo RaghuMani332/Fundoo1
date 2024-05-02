@@ -1,11 +1,21 @@
-<div class="warning">Notes in the Recycle Bin are deleted after 7 days. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="">EmptyBin</a></div>
+<!-- <div class="warning">Notes in the Recycle Bin are deleted after 7 days. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="">EmptyBin</a></div>
 <br> <br>
-<div class="trash-main-cnt"> 
+<div class="trash-outer">
+    <div class="trash-main-cnt" *ngFor="let note of trashList"> 
 
-<div class="icons">
+        <div class="icons">
+        
+            <div>{{note.title}}</div>
+            <div>{{note.description}}</div>
+            
+            <div>
+                <mat-icon class="restore-icon" svgIcon="restore-icon" aria-hidden="false" aria-label="Note SVG icon"></mat-icon>
+            <mat-icon class="delete-forever-icon" svgIcon="delete-forever-icon" aria-hidden="false" aria-label="Note SVG icon"></mat-icon>
+            </div>
+            
+        </div>
+        </div>
+        
+</div> -->
+<app-note-card [notesData]="trashList" [container]="'trash'" (updateList)="handelUpdateTrashList($event)"></app-note-card>
 
-    
-    <mat-icon class="restore-icon" svgIcon="restore-icon" aria-hidden="false" aria-label="Note SVG icon"></mat-icon>
-    <mat-icon class="delete-forever-icon" svgIcon="delete-forever-icon" aria-hidden="false" aria-label="Note SVG icon"></mat-icon>
-</div>
-</div>

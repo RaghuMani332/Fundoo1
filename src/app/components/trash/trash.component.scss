@@ -1,7 +1,22 @@
+
+.trash-outer
+{
+    
+    display: flex;
+    flex-wrap: wrap;
+   gap: 10px;
+   flex-direction: row;
+    :hover{
+        mat-icon{
+            visibility: visible;
+        }
+    }
+}
 .trash-main-cnt
 {
-    position: relative;
-    border: 1px solid red;
+   // position: relative;
+    border: 1px solid ;
+    border-radius: 8px;
    // height: 150px;
     min-height: 100px;
     max-height: fit-content;
@@ -12,11 +27,11 @@
     padding: 10px;
    
 }
-.icons{
-    position:absolute;
-    bottom: 0;
-    display: flex;
-    gap: 5px;
+mat-icon{
+   
+  margin-top: 30px;
+  visibility: hidden;
+  
     
 }
 .warning{

@@ -1,4 +1,6 @@
+
 <mat-drawer-container  [hasBackdrop]="false">
+    
     <mat-drawer #drawer [mode]="'over'" [opened]="drawerState">
         <div class="main-div">
             <div class="side-nav-icon-lable-cnt" routerLink="/dashboard/notes">
@@ -21,7 +23,7 @@
                 <span>Archive</span>
             </div>
 
-            <div class="side-nav-icon-lable-cnt">
+            <div class="side-nav-icon-lable-cnt" routerLink="/dashboard/trash">
                 <mat-icon class="trash-icon" svgIcon="trash-icon" aria-hidden="false" aria-label="Trash SVG icon"></mat-icon>
                 <span>Trash</span>
             </div>
@@ -32,6 +34,17 @@
 
 
     <mat-drawer-content>
+        <div class="drawer-router-outlet-cnt">
+            <div class="close-drawer-cnt">
+               
+                    <mat-icon class="note-icon" routerLink="/dashboard/notes" svgIcon="note-icon" aria-hidden="false" aria-label="Note SVG icon"></mat-icon>
+                    <mat-icon class="reminder-icon" svgIcon="reminder-icon" aria-hidden="false" aria-label="Reminder SVG icon"></mat-icon>
+                    <mat-icon class="edit-icon" svgIcon="edit-icon" aria-hidden="false" aria-label="Edit SVG icon"></mat-icon>
+                    <mat-icon class="archive-icon" routerLink="/dashboard/archive" svgIcon="archive-icon" aria-hidden="false" aria-label="Archive SVG icon"></mat-icon>
+                    <mat-icon class="trash-icon" routerLink="/dashboard/trash" svgIcon="trash-icon" aria-hidden="false" aria-label="Trash SVG icon"></mat-icon>
+                    
+            </div>
+            </div>
         <router-outlet></router-outlet>
     </mat-drawer-content>
   </mat-drawer-container>

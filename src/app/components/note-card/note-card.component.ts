@@ -12,7 +12,7 @@
 
 //   showIcons:boolean=false;
 //   textbar:boolean=false;
- 
+
 //   @Input() notesData!: any;
 //   constructor(private domSanitizer:DomSanitizer,private matIconRegistry:MatIconRegistry) 
 //   {
@@ -33,10 +33,14 @@
 // }
 
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Subscription } from 'rxjs';
+import { DataService } from 'src/app/Services/dataService/data.service';
 import { NotesService } from 'src/app/Services/noteService/notes.service';
-import { ARCHIVE_ICON, COLLABRATOR_ICON, COLOR_PALATTE_ICON, IMG_ICON, MORE_ICON, PIN_ICON, REMINDER_ICON } from 'src/assets/svg-icons';
+import { ARCHIVE_ICON, COLLABRATOR_ICON, COLOR_PALATTE_ICON, IMG_ICON, MORE_ICON, PIN_ICON, REMINDER_ICON, UNARCHIVE_ICON } from 'src/assets/svg-icons';
+import { EditNoteComponent } from '../edit-note/edit-note.component';
 
 @Component({
   selector: 'app-note-card',
@@ -44,36 +48,80 @@ import { ARCHIVE_ICON, COLLABRATOR_ICON, COLOR_PALATTE_ICON, IMG_ICON, MORE_ICON
   styleUrls: ['./note-card.component.scss']
 })
 export class NoteCardComponent implements OnInit {
-
-  // Add this line to define the showIcons property
+  trashList: any = []
   @Input() notesData!: any;
+  @Input() container!: string;
 
-  @Output() updateList=new EventEmitter<any>();
+  @Output() updateList = new EventEmitter<any>();
+
+  searchString:string=''
+  subscription!:Subscription
+
+  
 
 
-  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer,private noteService: NotesService) {
+  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, private noteService: NotesService , private dataService:DataService,public dialog: MatDialog) {
     iconRegistry.addSvgIconLiteral("reminder-icon", sanitizer.bypassSecurityTrustHtml(REMINDER_ICON))
     iconRegistry.addSvgIconLiteral("collabrator-icon", sanitizer.bypassSecurityTrustHtml(COLLABRATOR_ICON))
     iconRegistry.addSvgIconLiteral("color-icon", sanitizer.bypassSecurityTrustHtml(COLOR_PALATTE_ICON))
     iconRegistry.addSvgIconLiteral('img-icon', sanitizer.bypassSecurityTrustHtml(IMG_ICON))
     iconRegistry.addSvgIconLiteral('archive-icon', sanitizer.bypassSecurityTrustHtml(ARCHIVE_ICON))
     iconRegistry.addSvgIconLiteral("pin-icon", sanitizer.bypassSecurityTrustHtml(PIN_ICON))
-    iconRegistry.addSvgIconLiteral('more-icon', sanitizer.bypassSecurityTrustHtml(MORE_ICON))    
+    iconRegistry.addSvgIconLiteral('more-icon', sanitizer.bypassSecurityTrustHtml(MORE_ICON))
+    iconRegistry.addSvgIconLiteral('unarchive-icon', sanitizer.bypassSecurityTrustHtml(UNARCHIVE_ICON))
   }
 
   ngOnInit(): void {
+    this.subscription=this.dataService.currSearchString.subscribe(res=>this.searchString=res)
+
   }
 
 
- 
-  handleNoteIconsClick(action: string, note: any) {
-    if(action=="archive"){      
-      this.noteService.archiveApiCall(note).subscribe(response => {         
-      this.updateList.emit({action:action,data:note});      
-      },err=>{console.log(err)
+
+  handleNoteIconsClick(action: string, note: any, color?: string) {
+    if (action == "archive") {
+      this.noteService.archiveApiCall(note).subscribe(response => {
+        this.updateList.emit({ action: action, data: note });
+      }, err => {
+        console.log(err)
       })
     }
-    
-}
+    else if (action == "trash") {
+      // this.noteService.trashNoteApiCall(note).subscribe(res => {
+      //   this.updateList.emit({ action: action, data: note })
+      // },
+      //   err => console.log(err))
+      this.noteService.trashNoteApiCall(note).subscribe(res=>{
+        this.updateList.emit({action:action,data:note})
+      })
+    }
+    else if (action == "color") {
+      note.bgColor = color
+      this.noteService.changeColorApiCall(note).subscribe(res => {
+        this.updateList.emit({ action: action, data: { ...note, bgColor: color } })
+      })
+    }
+    else if (action == "restore") {
+    this.noteService.trashNoteApiCall(note).subscribe(res=>{
+      this.updateList.emit({action:action,data:note})
+    })
+    }
+    else if (action == "permanentDelete") {
+      this.noteService.permanentDeleteApiCall(note).subscribe(res => {
+        this.updateList.emit({ action: action, data: note })
+      },
+        err => console.log(err))
+    }
+  }
+  handleEditnote(note:any)
+  {
+    const dialogRef=this.dialog.open(EditNoteComponent, {
+      data: note
+    }); 
+    dialogRef.afterClosed().subscribe(res=>{this.noteService.updateNoteApiCall(res).subscribe(result=>{
+      this.updateList.emit({action:'update',data:result})})})
+  
+  }
+
 }
 

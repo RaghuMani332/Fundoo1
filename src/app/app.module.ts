@@ -23,13 +23,17 @@ import { CreateNoteComponent } from './components/create-note/create-note.compon
 import { HeaderComponent } from './components/header/header.component';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { SearchPipe } from './Pipe/search.pipe';
 import { ArchiveComponent } from './components/archive/archive.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { EditNoteComponent } from './components/edit-note/edit-note.component';
 import { NoteCardComponent } from './components/note-card/note-card.component';
 import { NotecontainerComponent } from './components/notecontainer/notecontainer.component';
 import { TrashComponent } from './components/trash/trash.component';
+
 
 
 
@@ -47,7 +51,9 @@ import { TrashComponent } from './components/trash/trash.component';
     NotecontainerComponent,
     NoteCardComponent,
     ArchiveComponent,
-    TrashComponent
+    TrashComponent,
+    SearchPipe,
+    EditNoteComponent
   ],
   imports: [
     FormsModule,
@@ -62,7 +68,8 @@ import { TrashComponent } from './components/trash/trash.component';
     MatDatepickerModule,
     HttpClientModule,
     MatSidenavModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDialogModule
 
   ],
   providers: [],
