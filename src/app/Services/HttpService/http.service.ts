@@ -24,6 +24,7 @@ private authHeader=new HttpHeaders({
   }
   getAllNotes(): Observable<any>
   {
+  
     console.log(this.authHeader);
     
     return this.httpclient.get("https://localhost:7004/api/Notes",{headers:this.authHeader})

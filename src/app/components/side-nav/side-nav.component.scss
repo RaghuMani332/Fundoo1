@@ -36,3 +36,14 @@ mat-drawer
 {
     height: 100%;
 }
+.drawer-router-outlet-cnt
+{
+    display: flex;
+    flex-direction: row;
+    // border: 1px solid;
+}
+.close-drawer-cnt
+{
+    display: flex;
+    flex-direction: column;
+}

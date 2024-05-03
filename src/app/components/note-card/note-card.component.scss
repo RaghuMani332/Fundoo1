@@ -139,7 +139,9 @@
 .sample-text {
   font-size: 14px;
   color: #333;
-  display: block; /* Display spans as block elements */
+  display: block;
+  overflow-wrap: break-word;
+  /* Display spans as block elements */
   //margin-bottom: 10px; /* Optional: Add some space between the spans */
 }
 
@@ -249,7 +251,7 @@ background-color: #EFEFF1;
 
 .warning{
     
-  // margin-left: 650px;
+  margin-left: 650px;
   color: #202124;
 
   display: flex;

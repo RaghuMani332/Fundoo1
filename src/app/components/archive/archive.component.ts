@@ -23,11 +23,15 @@ export class ArchiveComponent implements OnInit {
 
 
   handelUpdateArchiveList($event: { action: string; data: any }) {
-    console.log('event', $event);
+    console.log('event', $event.data.noteId);
+    console.log(this.archiveList);
+    
     if ($event.action == 'archive' || $event.action == 'trash') {
       this.archiveList = this.archiveList.filter(
-        (ele: any) => ele.id != $event.data.id
+        (ele: any) => ele.noteId != $event.data.noteId
       );
+      console.log(this.archiveList);
+      
     }
   }
 }

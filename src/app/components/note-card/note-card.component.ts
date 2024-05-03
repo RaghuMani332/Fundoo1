@@ -87,10 +87,6 @@ export class NoteCardComponent implements OnInit {
       })
     }
     else if (action == "trash") {
-      // this.noteService.trashNoteApiCall(note).subscribe(res => {
-      //   this.updateList.emit({ action: action, data: note })
-      // },
-      //   err => console.log(err))
       this.noteService.trashNoteApiCall(note).subscribe(res=>{
         this.updateList.emit({action:action,data:note})
       })

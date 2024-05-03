@@ -31,7 +31,7 @@ export class NotecontainerComponent implements OnInit {
         }
       })
     }
-    else if ($event.action == 'archive') {
+    else if ($event.action == 'archive' || $event.action=='trash') {
       this.noteList = this.noteList.filter((note: any) => note.noteId != $event.data.noteId);
     }
     else if($event.action=='update')
